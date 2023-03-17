@@ -6,9 +6,27 @@ pipeline {
 
   }
   stages {
-    stage('Code Checkout') {
+    stage('Checkout Code') {
       steps {
-        sh 'echo "Checking out code from github"'
+        git(url: 'https://github.com/lasharibaloch/angularproject', branch: 'main')
+      }
+    }
+
+    stage('Installation of nodejs') {
+      steps {
+        sh 'npm install '
+      }
+    }
+
+    stage('Test') {
+      steps {
+        sh 'npm run test --watch=false'
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'ng build --prod'
       }
     }
 
